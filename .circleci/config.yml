@@ -16,6 +16,16 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+      
+      - run:
+          name: Build back-end
+          command: |
+            cd backend
+            npm install
+            npm build
+
+
+
 workflows:
   hello:
     jobs:
