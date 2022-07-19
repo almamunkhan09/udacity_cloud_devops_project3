@@ -8,7 +8,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - slack/notify:
-          event: pass
+          event: fail
 
   build-frontend:
     docker:
