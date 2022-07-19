@@ -39,6 +39,9 @@ jobs:
       - checkout
       - restore_cache:
           keys: [backend-build]
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
       - run:
           name: Back-end build
           command: |
