@@ -2,18 +2,18 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.4
 jobs:
-#  example-job:
-#   docker:
-#     # replace with your preferred image
-#     - image: cimg/base:stable
-#   steps:
-#     - run: echo "Sending status"
-#     - slack/notify:
-#         event: fail
-#         template: basic_fail_1
-#     - slack/notify:
-#         event: pass
-#         template: success_tagged_deploy_1
+  example-job:
+   docker:
+     # replace with your preferred image
+     - image: cimg/base:stable
+   steps:
+     
+     - slack/notify:
+         event: fail
+         template: basic_fail_1
+     - slack/notify:
+         event: pass
+         template: success_tagged_deploy_1
 
   build-frontend:
     docker:
@@ -31,10 +31,8 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
-      - slack/notify:
-          event: fail
-          template: basic_fail_1    
-
+      
+            
   build-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -50,9 +48,7 @@ jobs:
              npm install
              npm run build
       
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
+      
       
 
 
@@ -138,5 +134,8 @@ workflows:
       - scan-backend:
           requires:
             - "build-backend"
-      
+      - example-job: 
+          requires:
+            - "build-backend"
+            - "build-frontend"
 
