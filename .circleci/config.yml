@@ -54,7 +54,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Test the fontend
+          name: Test the backend
           command: |
             cd backend
             npm install
@@ -62,6 +62,18 @@ jobs:
 
       # Restore from cache
       # Your job code here
+  
+  scan-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: 
+          name: audit the frontend code
+          command: |
+            cd frontend
+            npm install
+            npm audit --audit-level=critical
 
 
 workflows:
