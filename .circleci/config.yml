@@ -2,18 +2,18 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.4
 jobs:
-  example-job:
-   docker:
-     # replace with your preferred image
-     - image: cimg/base:stable
-   steps:
+  # example-job:
+  #  docker:
+  #    # replace with your preferred image
+  #    - image: cimg/base:stable
+  #  steps:
      
-     - slack/notify:
-         event: fail
-         template: basic_fail_1
-     - slack/notify:
-         event: pass
-         template: success_tagged_deploy_1
+  #    - slack/notify:
+  #        event: fail
+  #        template: basic_fail_1
+  #    - slack/notify:
+  #        event: pass
+  #        template: success_tagged_deploy_1
 
   build-frontend:
     docker:
@@ -31,6 +31,16 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+
+## Adding Slack Notifications. Currently fail notification is on
+
+      - slack/notify:
+         event: fail
+         template: basic_fail_1
+      
+      - slack/notify:
+         event: pass
+         template: success_tagged_deploy_1
       
             
   build-backend:
@@ -47,10 +57,17 @@ jobs:
              cd backend
              npm install
              npm run build
+## Adding Slack Notifications. Currently fail notification is on
 
       - slack/notify:
          event: fail
          template: basic_fail_1
+      
+      - slack/notify:
+         event: pass
+         template: success_tagged_deploy_1
+      
+
       
       
       
