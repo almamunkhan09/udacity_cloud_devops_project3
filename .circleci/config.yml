@@ -2,26 +2,13 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.4.4
 jobs:
-  # example-job:
-  #  docker:
-  #    # replace with your preferred image
-  #    - image: cimg/base:stable
-  #  steps:
-     
-  #    - slack/notify:
-  #        event: fail
-  #        template: basic_fail_1
-  #    - slack/notify:
-  #        event: pass
-  #        template: success_tagged_deploy_1
-
+## Building Frontend of the apps  
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-#      - restore_cache:
-#          keys: [frontend-build]
+      
       - run:
           name: Build front-end
           command: |
@@ -38,18 +25,19 @@ jobs:
          event: fail
          template: basic_fail_1
       
-      - slack/notify:
-         event: pass
-         template: success_tagged_deploy_1
+      # - slack/notify:
+      #    event: pass
+      #    template: success_tagged_deploy_1
       
-            
+######################################################################
+## Building Backend For this project
+
   build-backend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
+      
       
       - run:
           name: Back-end build
@@ -57,74 +45,103 @@ jobs:
              cd backend
              npm install
              npm run build
+
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build  
+
 ## Adding Slack Notifications. Currently fail notification is on
 
       - slack/notify:
          event: fail
          template: basic_fail_1
       
-      - slack/notify:
-         event: pass
-         template: success_tagged_deploy_1
-      
+      # - slack/notify:
+      #    event: pass
+      #    template: success_tagged_deploy_1
+  
+##################################################################
+## Test Units
 
-      
-      
-      
+## Test Frontend
 
-
-      - save_cache:
-          paths: [backend/node_modules]
-          key: backend-build      
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
-      # Docker image here
+      
     steps:
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       - run: 
           name: Test the fontend
           command: |
             cd frontend
             npm install
             npm run test
-  
 
+## Slack notification for test 
+
+      - slack/notify:
+         event: fail
+         template: basic_fail_1
+  
+## Test backend
   test-backend:
     docker:
       - image: circleci/node:13.8.0
-      # Docker image here
+      
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
+      
       - run: 
           name: Test the backend
           command: |
             cd backend
             npm install
             npm run test
+      
+      ## Slack notification for test 
+
+      - slack/notify:
+         event: fail
+         template: basic_fail_1
+  
 
       # Restore from cache
       # Your job code here
-  
+
+############################################################
+## Auditing the codes
+
+# Audit the frontend
+
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       - run: 
           name: audit the frontend code
           command: |
             cd frontend
             npm install
             npm audit fix --audit-level=critical --force
-            
             npm audit --audit-level=critical
   
+## Audit the backend
+
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       - run: 
           name: audit the backend code
           command: |
@@ -133,10 +150,6 @@ jobs:
             npm audit fix --audit-level=critical --force
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
-  
-
-  
-
 
 workflows:
   hello:
@@ -155,8 +168,4 @@ workflows:
       - scan-backend:
           requires:
             - "build-backend"
-      # - example-job: 
-      #     requires:
-      #       - "build-backend"
-      #       - "build-frontend"
-
+      
