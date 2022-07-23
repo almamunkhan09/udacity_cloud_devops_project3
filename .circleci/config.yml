@@ -152,7 +152,7 @@ jobs:
             npm audit --audit-level=critical
 
 workflows:
-  hello:
+  Udacity Project 3:
     jobs:
       - build-frontend
       - build-backend
