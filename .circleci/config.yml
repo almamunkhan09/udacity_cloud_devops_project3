@@ -155,8 +155,8 @@ workflows:
       - scan-backend:
           requires:
             - "build-backend"
-      - example-job: 
-          requires:
-            - "build-backend"
-            - "build-frontend"
+      # - example-job: 
+      #     requires:
+      #       - "build-backend"
+      #       - "build-frontend"
 
