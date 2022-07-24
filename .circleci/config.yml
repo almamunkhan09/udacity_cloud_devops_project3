@@ -200,10 +200,10 @@ jobs:
       - image: amazon/aws-cli:2.7.18
     steps:
       - checkout 
-      # - run:
-      #     name: Install tar utility
-      #     command: |
-      #       yum install -y tar gzip
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -226,8 +226,10 @@ jobs:
           command: |
              mkdir -p project/.circleci/ansible
              aws ec2 describe-instances \
-             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > project/.circleci/ansible/inventory.txt
-            
+             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> project/.circleci/ansible/inventory.txt
+             cat project/.circleci/ansible/inventory.txt 
+
+             cat env.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -235,6 +237,48 @@ jobs:
       # Here's where you will add some code to rollback on failure 
       - destroy-environment 
 
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      # Checkout code from git
+      - checkout 
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["63:8f:b6:00:7a:97:3a:7d:d8:fb:3c:74:db:c8:02:1e"] # You can get this ID in the section where you registered the SSH K
+      # attach workspace
+      - attach_workspace:
+            # Must be absolute path or relative path from working_directory
+            at: project/.circleci/ansible/inventory.txt
+
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible 
+            apk add openssh-client
+      - run:
+          name: Configure server
+          command: |
+            # Your code here
+            exit 1
+      # Here's where you will add some code to rollback on failure      
+
+  run-migrations:
+    docker:
+      # Docker image here that supports NodeJS
+    steps:
+      # Checkout code from git
+      - run:
+          name: Run migrations
+          command: |
+            # Your code here
+            exit 1
+      - run:
+          name: Send migration results to memstash
+          command: |
+            # Your code here
+            exit 1
+     # Here's where you will add some code to rollback on failure     
 
 
 workflows:
