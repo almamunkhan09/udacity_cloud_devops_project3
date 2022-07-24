@@ -222,7 +222,7 @@ jobs:
           command: |
              mkdir -p project/.circleci/ansible
              aws ec2 describe-instances \
-             --filters "Name=project,Values=udapeople" --output text > project/.circleci/ansible/inventory.txt
+             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > project/.circleci/ansible/inventory.txt
             
       - persist_to_workspace:
           root: ~/
