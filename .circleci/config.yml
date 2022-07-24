@@ -259,8 +259,8 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cd .circleci/ansible
-            ansible-playbook -i project/.circleci/ansible/inventory.txt configure-server.yml
+            cat project/.circleci/ansible/inventory.txt 
+            ansible all -i project/.circleci/ansible/inventory.txt -m ping 
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
 
