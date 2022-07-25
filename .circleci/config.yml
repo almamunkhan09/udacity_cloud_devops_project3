@@ -224,16 +224,16 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-             mkdir -p project/.circleci/ansible
+             mkdir -p workspace
              aws ec2 describe-instances \
-             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > inventory.txt
-             cat inventory.txt 
+             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> workspace/inventory.txt
+             cat workspace/inventory.txt 
 
              
       - persist_to_workspace:
-          root: ~/
+          root: workspace
           paths:
-            - inventory.txt
+            - project
       # Here's where you will add some code to rollback on failure 
       - destroy-environment 
 
@@ -249,7 +249,7 @@ jobs:
       # attach workspace
       - attach_workspace:
             # Must be absolute path or relative path from working_directory
-            at: ~/inventory.txt
+            at: workspace/inventory.txt
 
       - run:
           name: Install dependencies
@@ -260,7 +260,7 @@ jobs:
           name: Configure server
           command: |
             
-            cat ~/inventory.txt 
+            cat workspace/inventory.txt 
 # ansible all -i project/.circleci/ansible/inventory.txt -m ping 
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
