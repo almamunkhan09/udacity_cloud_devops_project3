@@ -239,7 +239,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: amazon/aws-cli:2.7.18
     steps:
       # Checkout code from git
       - checkout 
@@ -254,14 +254,14 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible 
-            apk add openssh-client
-            apk add --update curl
+            sudo yum install ansible -y
+# #            apk add openssh-client
+#             apk add --update curl
             
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            apk add --update sudo
-            sudo ./aws/install
+#             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#             unzip awscliv2.zip
+#             apk add --update sudo
+#             sudo ./aws/install
       - run:
           name: Configure server
           command: |
