@@ -266,7 +266,7 @@ jobs:
             cd .circleci/ansible
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt configure-server.yml -u ubuntu -c ssh
- #           ansible web -i inventory.txt -m ping -u ubuntu -c ssh
+ ##           ansible web -i inventory.txt -m ping -u ubuntu -c ssh
 #export ANSIBLE_HOST_KEY_CHECKING=False
              
       # Here's where you will add some code to rollback on failure
