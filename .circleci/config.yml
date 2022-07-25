@@ -258,10 +258,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yum update
-            yum install sudo -y
-            sudo amazon-linux-extras install ansible2 -y
-            sudo yum install python3 -y
+             amazon-linux-extras install ansible2 -y
+             python --version
+             yum install python3 -y
 # #            apk add openssh-client
 #             apk add --update curl
             
