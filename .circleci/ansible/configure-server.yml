@@ -17,10 +17,10 @@
       pause:
         minutes: 3
 
-    - name: "upgrade packages."
-      become: true
-      apt:
-        upgrade: "yes"
+    # - name: "upgrade packages."
+    #   become: true
+    #   apt:
+    #     upgrade: "yes"
     
     - name: "check if python is install"
       command: type python3
