@@ -226,14 +226,14 @@ jobs:
           command: |
              mkdir -p project/.circleci/ansible
              aws ec2 describe-instances \
-             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> project/.circleci/ansible/inventory.txt
-             cat project/.circleci/ansible/inventory.txt 
+             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > inventory.txt
+             cat inventory.txt 
 
              
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - inventory.txt
       # Here's where you will add some code to rollback on failure 
       - destroy-environment 
 
@@ -249,7 +249,7 @@ jobs:
       # attach workspace
       - attach_workspace:
             # Must be absolute path or relative path from working_directory
-            at: project/.circleci/ansible/inventory.txt
+            at: ~/inventory.txt
 
       - run:
           name: Install dependencies
@@ -259,8 +259,8 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ls -lah project/.circleci/ansible/inventory.txt
-            cat project/.circleci/ansible/inventory.txt 
+            
+            cat ~/inventory.txt 
 # ansible all -i project/.circleci/ansible/inventory.txt -m ping 
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
