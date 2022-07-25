@@ -258,8 +258,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            
-            yum install ansible 
+            yum install sudo
+            sudo yum install epel-release
+            sudo yum install ansible 
 # #            apk add openssh-client
 #             apk add --update curl
             
