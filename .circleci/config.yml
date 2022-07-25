@@ -265,6 +265,7 @@ jobs:
             pwd
             cd .circleci/ansible
             pwd
+            export ANSIBLE_HOST_KEY_CHECKING=False
             
             ansible-playbook -i inventory.txt configure-server.yml -u ubuntu -c ssh
  #           ansible web -i inventory.txt -m ping -u ubuntu -c ssh
