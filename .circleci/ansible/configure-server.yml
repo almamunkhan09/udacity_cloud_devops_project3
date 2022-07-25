@@ -24,10 +24,11 @@
 
     - name: "install python for Ansible."
       become: true
-      yum: 
-        name: python>=3.7
+      apt: 
+        name: python=3.7
         state: present
         update_cache: yes
+        
 
       
 
