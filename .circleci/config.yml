@@ -262,7 +262,9 @@ jobs:
             ls -lah workspace
             cat workspace/inventory.txt >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
+            pwd
             cd .circleci/ansible
+            pwd
             ansible web -i project/.circleci/ansible/inventory.txt -m ping 
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
