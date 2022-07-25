@@ -265,8 +265,11 @@ jobs:
             pwd
             cd .circleci/ansible
             pwd
-            export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible web -i inventory.txt -m ping -u ubuntu -c ssh
+            
+            ansible-playbook -i inventory.txt configure-server.yml
+ #           ansible web -i inventory.txt -m ping -u ubuntu -c ssh
+#export ANSIBLE_HOST_KEY_CHECKING=False
+             
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
 
