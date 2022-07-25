@@ -26,7 +26,7 @@
       apt: 
         name: python 
         update_cache: yes
-      # Your code here
+      
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
