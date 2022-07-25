@@ -265,7 +265,7 @@ jobs:
             pwd
             cd .circleci/ansible
             pwd
-            ansible web -i inventory.txt -m ping 
+            ansible web -i inventory.txt -m ping -u ubuntu
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
 
