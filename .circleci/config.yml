@@ -261,6 +261,7 @@ jobs:
             yum update
             yum install sudo -y
             sudo amazon-linux-extras install ansible2 -y
+            sudo yum install python3 -y
 # #            apk add openssh-client
 #             apk add --update curl
             
