@@ -250,6 +250,11 @@ jobs:
       - attach_workspace:
             # Must be absolute path or relative path from working_directory
             at: workspace
+            
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
 
       - run:
           name: Install dependencies
