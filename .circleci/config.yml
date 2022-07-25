@@ -260,8 +260,7 @@ jobs:
           command: |
             yum update
             yum install sudo -y
-            sudo yum install epel-release -y
-            sudo yum install ansible -y
+            sudo amazon-linux-extras install ansible2 -y
 # #            apk add openssh-client
 #             apk add --update curl
             
