@@ -15,7 +15,10 @@
   pre_tasks:
     - name: "wait 300 seconds for target connection to become reachable/usable."
       pause:
-        minutes: 3
+        minutes: 1
+
+    - name: "check if python is install"
+      command: ip addr show
 
     # - name: "upgrade packages."
     #   become: true
