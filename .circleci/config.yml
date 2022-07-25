@@ -266,7 +266,7 @@ jobs:
             cd .circleci/ansible
             pwd
             export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible web -i inventory.txt -m ping --ansible_user=ubuntu
+            ansible web -i inventory.txt -m ping -u ubuntu -c ssh
       # Here's where you will add some code to rollback on failure
       - destroy-environment       
 
