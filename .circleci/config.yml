@@ -226,7 +226,7 @@ jobs:
           command: |
              mkdir -p workspace
              aws ec2 describe-instances \
-             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> workspace/inventory.txt
+             --filters "Name=tag-value,Values=udapeople" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text > workspace/inventory.txt
              cat workspace/inventory.txt 
 
              
