@@ -256,17 +256,15 @@ jobs:
           command: |
             apk add --update ansible 
             apk add openssh-client
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - run:
           name: Configure server
           command: |
-            ls -lah workspace
             cat workspace/inventory.txt >> .circleci/ansible/inventory.txt
-            cat .circleci/ansible/inventory.txt
-            pwd
             cd .circleci/ansible
-            pwd
             export ANSIBLE_HOST_KEY_CHECKING=False
-            
             ansible-playbook -i inventory.txt configure-server.yml -u ubuntu -c ssh
  #           ansible web -i inventory.txt -m ping -u ubuntu -c ssh
 #export ANSIBLE_HOST_KEY_CHECKING=False
