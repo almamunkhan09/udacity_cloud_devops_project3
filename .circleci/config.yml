@@ -22,9 +22,9 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack \
-              --stack-name << pipeline.parameters.backend >>
+              --stack-name << parameters.backend >>
             aws cloudformation delete-stack \
-              --stack-name  << pipeline.parameters.frontend >>
+              --stack-name  << parameters.frontend >>
 
 
   revert-migrations:
