@@ -24,11 +24,7 @@ commands:
             aws cloudformation delete-stack \
               --stack-name << pipeline.parameters.backend >>
             aws cloudformation delete-stack \
-<<<<<<< HEAD
-              --stack-name << pipeline.parameters.frontend >>
-=======
-              --stack-name << pipeline.parameters.backend >>
->>>>>>> 0c9e7752bfbb6613d403e7918794c01e43fb8db3
+              --stack-name  << pipeline.parameters.frontend >>
 
 
   revert-migrations:
