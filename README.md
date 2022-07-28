@@ -62,3 +62,27 @@ Before you submit your project, please check your work against the project rubri
 ### License
 
 [License](LICENSE.md)
+
+
+
+Solution :
+
+Divided the CICD pipeline in several steps:
+
+1. Build and Test: 
+  a. Build the frontend
+      a docker circleci/node:13.8.0 is used. Then go to working directory frontend and build by <npm run build>.
+      the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
+      
+  b. Test the frontend: 
+      a docker circleci/node:13.8.0 is used. Then go to working directory frontend and test by <npm run test>.
+      the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
+      
+  c. Build the Backend Code
+      a docker circleci/node:13.8.0 is used. Then go to working directory backend and build by <npm run build>.
+      the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
+
+  d. Test the frontend: 
+      a docker circleci/node:13.8.0 is used. Then go to working directory backend and test by <npm run test>.
+      the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
+
