@@ -38,7 +38,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS = $(curl https://kvdb.io/E9pqGMx17c9xeMUapp7KxA/<< parameters.migration_id >> )
+            SUCCESS = $(curl https://kvdb.io/WbbmMSRoodDrXnX4ssiYTK/<< parameters.migration_id >> )
             if(( $SUCCESS==1 )); 
             then
              cd ~/project/backend
@@ -306,15 +306,13 @@ jobs:
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
             
-# npm run migrations > migrations_dump.txt
-# cat migrations_dump.txt 
-# npm run migrations:revert
+
       - run:
-          name: Send migration results to memstash
+          name: Send migration results to kvdb
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/E9pqGMx17c9xeMUapp7KxA/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+              curl https://kvdb.io/WbbmMSRoodDrXnX4ssiYTK/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
       
       - revert-migrations    ## revert the migration if the last step fail 
