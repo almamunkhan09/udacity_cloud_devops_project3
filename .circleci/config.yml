@@ -422,7 +422,7 @@ jobs:
             cat inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             aws --version
-            cat invemtory.txt
+            
 #           ansible-playbook -i inventory.txt deploy-backend.yml -u ubuntu -c ssh
          
 
