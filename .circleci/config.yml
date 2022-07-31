@@ -316,6 +316,57 @@ jobs:
       - revert-migrations    ## revert the migration if the last step fail 
 
 
+
+  deploy-frontend:
+    docker:
+      # Docker image here that supports NodeJS
+      - image: circleci/node:13.8.0
+    steps:
+      # Checkout code from git
+      - checkout
+      - attach_workspace:
+          at: workspace 
+
+      - run:
+          name: Install tar utility
+          command: |
+            yum update -y
+            yum install -y tar gzip
+            yum install sudo -y
+
+      - run: 
+          name: install node
+          command: |
+            yum update -y
+            curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+            sudo yum install nodejs -y
+
+      - run: 
+          name: install python3
+          command: |
+            yum install -y python3
+            sudo amazon-linux-extras install ansible2 -y
+            
+
+      - run: 
+          name: install ansible
+          command: |
+            sudo amazon-linux-extras install ansible2 -y
+            ansible --version
+
+      - run: 
+          name: add enviornmental variables
+          command: |
+            export BACKEND_IP=$(tail workspace/inventory.txt)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "API_URL = ${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
+            
+
+
+
+
 workflows:
   Udacity Project 3:
     jobs:
@@ -340,5 +391,8 @@ workflows:
       - run-migrations:
           requires:
             - "build-backend"
+      - deploy-frontend:
+          requires:
+            - "deploy-infrastructure"
 
       
