@@ -324,8 +324,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - attach_workspace:
-          at: workspace 
+      
 
       - run:
           name: Install tar utility
@@ -353,7 +352,9 @@ jobs:
           command: |
             sudo amazon-linux-extras install ansible2 -y
             ansible --version
-
+            
+      - attach_workspace:
+          at: workspace 
       - run: 
           name: add enviornmental variables
           command: |
