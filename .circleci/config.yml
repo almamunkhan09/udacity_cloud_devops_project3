@@ -422,8 +422,9 @@ jobs:
             tar -C backend -cvzf artifact.tar.gz .
             cd .circleci/ansible
             echo "contents of the inventory.txt ...."
-            cat invemtory.txt
+            cat inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
+            aws --version
 #           ansible-playbook -i inventory.txt deploy-backend.yml -u ubuntu -c ssh
          
 
