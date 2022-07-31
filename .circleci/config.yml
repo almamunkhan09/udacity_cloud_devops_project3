@@ -320,7 +320,7 @@ jobs:
   deploy-frontend:
     docker:
       # Docker image here that supports NodeJS
-      - image: circleci/node:13.8.0
+      - image: circleci/amazon/aws-cli:2.7.18
     steps:
       # Checkout code from git
       - checkout
