@@ -352,13 +352,13 @@ jobs:
           command: |
             sudo amazon-linux-extras install ansible2 -y
             ansible --version
-            
+
       - attach_workspace:
           at: workspace 
       - run: 
           name: add enviornmental variables
           command: |
-            export BACKEND_IP=$(tail workspace/inventory.txt)
+            export BACKEND_IP=$(tail -1 workspace/inventory.txt)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
