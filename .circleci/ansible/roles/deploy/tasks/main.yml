@@ -1,0 +1,11 @@
+- name: Another symbolic mode example, adding some permissions and removing others
+  ansible.builtin.copy:
+    src: ~/project/backend/artifact.tar.gz
+    dest: ~/backend
+
+
+    
+
+
+
+
