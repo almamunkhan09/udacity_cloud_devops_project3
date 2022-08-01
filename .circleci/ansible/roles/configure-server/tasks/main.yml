@@ -17,7 +17,5 @@
     global: yes
     production: yes
     state: present
-- name: "echo"
-  become: true
-  shell: echo "$TYPEORM_PORT"
+
     

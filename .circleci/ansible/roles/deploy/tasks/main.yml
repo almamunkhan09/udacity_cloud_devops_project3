@@ -1,27 +1,39 @@
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: ~/backend 
+    path: ~/app 
     state: directory
     mode: '0777'
 
 - name: Another symbolic mode example, adding some permissions and removing others
   ansible.builtin.copy:
     src: ~/project/artifact.tar.gz
-    dest: ~/backend/artifact.tar.gz
+    dest: ~/app/artifact.tar.gz
 
 - name: Unarchive a file that is already on the remote machine
   ansible.builtin.unarchive:
-    src: ~/backend/artifact.tar.gz
-    dest: ~/backend/
+    src: ~/app/artifact.tar.gz
+    dest: ~/app/
     remote_src: yes
 
 - name: run the backend
+  environment:
+    ENVIRONMENT: production
+    NODE_ENV: production
+    TYPEORM_CONNECTION: postgres
+    TYPEORM_MIGRATIONS_DIR: ~/src/migrations
+    TYPEORM_MIGRATIONS: ~/src/migrations/*.ts
+    TYPEORM_ENTITIES: ~/src/modules/domain/**/*.entity.ts
+    TYPEORM_HOST: database1.cjzl5qz3hd28.us-east-1.rds.amazonaws.com
+    TYPEORM_PORT: 5432
+    TYPEORM_USERNAME: mamun
+    TYPEORM_PASSWORD: Ma0902044
+    TYPEORM_DATABASE: udacity
+
   shell: |
-    cd backend
+    cd ~/app/
     sudo npm install 
     sudo pm2 stop default
-    sudo pm2 start npm -- start
-
+    sudo pm2 start ~/app/dist/main.js  --name backend -f
 
     
 
