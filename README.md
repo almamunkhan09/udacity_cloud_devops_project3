@@ -86,3 +86,7 @@ Divided the CICD pipeline in several steps:
       a docker circleci/node:13.8.0 is used. Then go to working directory backend and test by <npm run test>.
       the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
 
+  e. Deploy infrustructure: 
+       
+       Using CloudFormation need to develop stack 
+
