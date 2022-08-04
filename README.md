@@ -67,7 +67,7 @@ Before you submit your project, please check your work against the project rubri
 
 Solution :
 
-Divided the CICD pipeline in several steps:
+Dividing the CICD pipeline in several steps:
 
 1. Build and Test: 
   a. Build the frontend
@@ -82,11 +82,13 @@ Divided the CICD pipeline in several steps:
       a docker circleci/node:13.8.0 is used. Then go to working directory backend and build by <npm run build>.
       the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
 
+
+
   d. Test the frontend: 
       a docker circleci/node:13.8.0 is used. Then go to working directory backend and test by <npm run test>.
       the artifacts is saved using save_cache. Also slack notificaion is added and it will alart if the build fails.
 
   e. Deploy infrustructure: 
        
-       Using CloudFormation need to develop stack 
+       Using CloudFormation need to develop stack
 
